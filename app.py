@@ -141,6 +141,18 @@ def plot_elbow(rfm_scaled: np.ndarray, max_k: int = 10):
     ax.set_title("Elbow Method for optimal k")
     st.pyplot(fig)
 
+from sklearn.metrics import silhouette_score
+
+def plot_rfm_distributions(rfm: pd.DataFrame):
+    """Plot boxplots of RFM values by Cluster."""
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+    metrics = ["Recency", "Frequency", "Monetary"]
+    for i, metric in enumerate(metrics):
+        axes[i].boxplot([rfm[rfm["Cluster"] == c][metric] for c in sorted(rfm["Cluster"].unique())])
+        axes[i].set_title(f"{metric} by Cluster")
+        axes[i].set_xticklabels(sorted(rfm["Cluster"].unique()))
+    st.pyplot(fig)
+
 def plot_cluster_distribution(rfm: pd.DataFrame):
     counts = rfm["Cluster"].value_counts().sort_index()
     fig, ax = plt.subplots()
@@ -198,8 +210,22 @@ def main():
         k = st.slider("Select number of clusters (K)", min_value=2, max_value=10, value=4)
         km_model = fit_kmeans(rfm_scaled, k)
         rfm["Cluster"] = km_model.labels_
+        
+        # Silhouette Score calculation
+        score = silhouette_score(rfm_scaled, rfm["Cluster"])
+        st.metric("Silhouette Score", f"{score:.3f}")
+        st.info("💡 Silhouette score validates cluster separation quality (higher is better).")
+
         st.success(f"K‑Means fitted with K={k}. Assigned clusters added to RFM table.")
-        plot_cluster_distribution(rfm)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("Cluster counts")
+            plot_cluster_distribution(rfm)
+        with col2:
+            st.subheader("RFM Metrics by Cluster")
+            plot_rfm_distributions(rfm)
+
         st.subheader("Cluster centroids (scaled space)")
         cent_df = pd.DataFrame(km_model.cluster_centers_, columns=rfm.columns.drop("Cluster"))
         st.dataframe(cent_df)

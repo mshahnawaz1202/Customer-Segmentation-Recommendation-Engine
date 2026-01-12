@@ -62,7 +62,6 @@ http://localhost:8501
 
 ## Dataset
 
-Place the Online Retail dataset in the `data/` folder and name it:
 
 ```
 data.csv
@@ -84,7 +83,7 @@ Expected columns:
 ## Notes
 
 * This project uses a single fixed CSV file
-* Designed for academic and portfolio use
+* Designed for academic  use
 * Easily extendable with dashboards and reports
 
 ---
@@ -93,5 +92,6 @@ Expected columns:
 
 **Muhammad Shah Nawaz**
 Customer Analytics | Data Science | Machine Learning
+
 
 

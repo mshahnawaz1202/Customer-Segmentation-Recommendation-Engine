@@ -65,7 +65,7 @@ http://localhost:8501
 Place the Online Retail dataset in the `data/` folder and name it:
 
 ```
-online_retail.csv
+data.csv
 ```
 
 Expected columns:
@@ -93,4 +93,5 @@ Expected columns:
 
 **Muhammad Shah Nawaz**
 Customer Analytics | Data Science | Machine Learning
+
 

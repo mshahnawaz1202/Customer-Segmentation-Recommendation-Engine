@@ -31,7 +31,14 @@ Customer Segmentation & Recommendation Engine/
 ````
 
 ---
+## Tech Used
 
+- Numpy
+- Pandas
+- Matplotlib
+- Sckit-learn
+- Streamlit
+  
 ## Getting Started
 
 ### Requirements
@@ -92,6 +99,7 @@ Expected columns:
 
 **Muhammad Shah Nawaz**
 Customer Analytics | Data Science | Machine Learning
+
 
 
 

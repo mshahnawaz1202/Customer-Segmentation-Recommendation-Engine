@@ -174,6 +174,7 @@ def main():
 
     # Initial clustering so other pages work immediately
     if "Cluster" not in rfm.columns:
+        # Scale only features (not the ID or existing clusters)
         rfm_scaled = scale_rfm(rfm)
         km_model = fit_kmeans(rfm_scaled, k=4) # Default to 4 clusters
         rfm["Cluster"] = km_model.labels_
@@ -204,7 +205,11 @@ def main():
     elif page == "Customer Segmentation":
         st.header("🔎 Customer Segmentation")
         st.subheader("Elbow Plot – choose optimal K")
-        rfm_scaled = scale_rfm(rfm)
+        
+        # EXCLUDE 'Cluster' from scaling if it exists
+        features = rfm.drop(columns=["Cluster"]) if "Cluster" in rfm.columns else rfm
+        rfm_scaled = scale_rfm(features)
+        
         plot_elbow(rfm_scaled, max_k=10)
         # Let user pick K (default 4 as in the spec)
         k = st.slider("Select number of clusters (K)", min_value=2, max_value=10, value=4)

@@ -25,8 +25,7 @@ Customer Segmentation & Recommendation Engine/
 ├── app.py
 ├── requirements.txt
 ├── README.md
-└── data/
-└── online_retail.csv
+└── data.csv
 
 ````
 
@@ -99,6 +98,7 @@ Expected columns:
 
 **Muhammad Shah Nawaz**
 Customer Analytics | Data Science | Machine Learning
+
 
 
 
